@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.egg
+
+# Node
+node_modules/
+.next/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker volumes (not needed in cloud)
+postgres_data/
+redis_data/
+minio_data/
+ollama_data/
+
+# Credentials (NEVER commit)
+CREDENCIAIS.md
+
+# Temp files
+/tmp/
+*.mp4
+*.mp3
+
+# Playwright
+.playwright-mcp/
