@@ -18,8 +18,8 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+asyncpg://postgres:postgres@db.xxx.supabase.co:5432/postgres"
     database_echo: bool = False
 
-    # Redis (Upstash free tier)
-    redis_url: str = "rediss://default:xxx@xxx.upstash.io:6379"
+    # Redis (Upstash free tier) — optional, app works without it
+    redis_url: str = ""
 
     # Storage — Supabase Storage (free tier, 1GB)
     supabase_url: str = ""
