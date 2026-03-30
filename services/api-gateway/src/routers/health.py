@@ -49,4 +49,6 @@ async def health_check(
         "status": "saudável" if all_ok else "degradado",
         "checks": checks,
         "debug_db_url": safe_url,
+        "debug_db_password_len": len(settings.db_password) if settings.db_password else 0,
+        "debug_db_password_first2": settings.db_password[:2] if settings.db_password else "",
     }
