@@ -2,6 +2,7 @@
 
 from collections.abc import AsyncGenerator
 
+from sqlalchemy import make_url
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
@@ -18,17 +19,20 @@ _session_factory: async_sessionmaker[AsyncSession] | None = None
 def _get_engine() -> AsyncEngine:
     global _engine  # noqa: PLW0603
     if _engine is None:
+        url = make_url(settings.effective_database_url)
+
         connect_args: dict = {}
-        if "pooler.supabase.com" in settings.database_url:
+        if "pooler.supabase.com" in (url.host or ""):
             connect_args["prepared_statement_cache_size"] = 0
             connect_args["statement_cache_size"] = 0
 
         _engine = create_async_engine(
-            settings.database_url,
+            url,
             echo=settings.database_echo,
             pool_size=5,
             max_overflow=3,
             pool_pre_ping=True,
+            pool_recycle=300,
             connect_args=connect_args,
         )
     return _engine

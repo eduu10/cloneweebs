@@ -18,6 +18,22 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+asyncpg://postgres:postgres@db.xxx.supabase.co:5432/postgres"
     database_echo: bool = False
 
+    # Alternative: separate DB components (overrides database_url if all are set)
+    db_host: str = ""
+    db_port: int = 6543
+    db_user: str = ""
+    db_password: str = ""
+    db_name: str = "postgres"
+
+    @property
+    def effective_database_url(self) -> str:
+        """Build URL from components if available, otherwise use database_url."""
+        if self.db_host and self.db_user and self.db_password:
+            from urllib.parse import quote_plus
+            password = quote_plus(self.db_password)
+            return f"postgresql+asyncpg://{self.db_user}:{password}@{self.db_host}:{self.db_port}/{self.db_name}"
+        return self.database_url
+
     # Redis (Upstash free tier) — optional, app works without it
     redis_url: str = ""
 
