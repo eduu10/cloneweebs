@@ -13,7 +13,7 @@ router = APIRouter(tags=["health"])
 async def health_check(
     db: AsyncSession = Depends(get_db),
     redis: Redis = Depends(get_redis),
-) -> dict[str, str | dict[str, str]]:
+) -> dict:
     checks: dict[str, str] = {}
 
     # Database
@@ -38,17 +38,7 @@ async def health_check(
 
     all_ok = all(v == "ok" for v in checks.values())
 
-    # Debug: show DB URL (redacted password)
-    from src.core.config import settings
-    db_url = settings.effective_database_url
-    # Redact password
-    import re
-    safe_url = re.sub(r'://([^:]+):([^@]+)@', r'://\1:***@', db_url)
-
     return {
         "status": "saudável" if all_ok else "degradado",
         "checks": checks,
-        "debug_db_url": safe_url,
-        "debug_db_password_len": len(settings.db_password) if settings.db_password else 0,
-        "debug_db_password_first2": settings.db_password[:2] if settings.db_password else "",
     }
