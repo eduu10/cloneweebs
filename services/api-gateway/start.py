@@ -1,23 +1,39 @@
-"""Startup script with error diagnostics."""
+"""Startup script — prints diagnostics then boots the real app."""
 import os
 import sys
 import traceback
 
 port = int(os.environ.get("PORT", 8000))
 
-print(f"Starting CloneWeebs API on port {port}...")
+print(f"=== CloneWeebs API Startup ===")
 print(f"Python: {sys.version}")
-print(f"ENV: {os.environ.get('ENVIRONMENT', 'not set')}")
-print(f"JWT_SECRET_KEY: {'set' if os.environ.get('JWT_SECRET_KEY') else 'MISSING'}")
-print(f"DATABASE_URL: {'set' if os.environ.get('DATABASE_URL') else 'MISSING'}")
+print(f"PORT: {port}")
+
+# Print all env vars (redacted)
+for key in ["ENVIRONMENT", "JWT_SECRET_KEY", "DATABASE_URL", "SUPABASE_URL", "CORS_ORIGINS"]:
+    val = os.environ.get(key, "")
+    status = f"set ({len(val)} chars)" if val else "MISSING"
+    print(f"  {key}: {status}")
 
 try:
+    print("Importing app...")
     from src.main import app
-    print("App imported successfully!")
+    print("Import OK!")
 except Exception as exc:
-    print(f"FATAL: Failed to import app: {exc}")
+    print(f"IMPORT FAILED: {exc}")
     traceback.print_exc()
-    sys.exit(1)
+
+    # Fall back to minimal healthcheck so we can see logs
+    from fastapi import FastAPI
+    app = FastAPI()
+
+    @app.get("/health")
+    def health():
+        return {"status": "error", "error": str(exc)}
+
+    @app.get("/")
+    def root():
+        return {"status": "error", "error": str(exc)}
 
 import uvicorn
 uvicorn.run(app, host="0.0.0.0", port=port)
