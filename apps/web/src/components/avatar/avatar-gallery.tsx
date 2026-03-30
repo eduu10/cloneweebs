@@ -59,7 +59,7 @@ export function AvatarGallery({ type = "all", onSelectAvatar }: AvatarGalleryPro
           {statusFilters.map((filter) => (
             <Button
               key={filter.value}
-              variant={statusFilter === filter.value ? "primary" : "secondary"}
+              variant={statusFilter === filter.value ? "default" : "secondary"}
               size="sm"
               onClick={() => {
                 setStatusFilter(filter.value);
