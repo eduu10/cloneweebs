@@ -11,12 +11,12 @@ interface AvatarCardProps {
   onClick?: (avatar: Avatar) => void;
 }
 
-const statusConfig: Record<AvatarStatus, { label: string; variant: "default" | "success" | "warning" | "danger" | "info" }> = {
+const statusConfig: Record<AvatarStatus, { label: string; variant: "default" | "secondary" | "destructive" | "outline" | "success" | "warning" }> = {
   pending_consent: { label: "Aguardando Consentimento", variant: "warning" },
-  pending_photos: { label: "Aguardando Fotos", variant: "info" },
+  pending_photos: { label: "Aguardando Fotos", variant: "secondary" },
   training: { label: "Treinando", variant: "warning" },
   ready: { label: "Pronto", variant: "success" },
-  failed: { label: "Falhou", variant: "danger" },
+  failed: { label: "Falhou", variant: "destructive" },
 };
 
 export function AvatarCard({ avatar, onClick }: AvatarCardProps) {
@@ -58,7 +58,7 @@ export function AvatarCard({ avatar, onClick }: AvatarCardProps) {
         <h3 className="font-medium text-white truncate">{avatar.name}</h3>
         <div className="flex items-center justify-between">
           <Badge variant={status.variant}>{status.label}</Badge>
-          <Badge variant={avatar.type === "custom" ? "info" : "default"}>
+          <Badge variant={avatar.type === "custom" ? "secondary" : "default"}>
             {avatar.type === "custom" ? "Personalizado" : "Estoque"}
           </Badge>
         </div>
