@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -54,10 +54,12 @@ export function ConsentDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        title="Termo de Consentimento (LGPD)"
-        description="Leia o termo completo antes de continuar"
         className="max-w-2xl"
       >
+        <DialogHeader>
+          <DialogTitle>Termo de Consentimento (LGPD)</DialogTitle>
+          <DialogDescription>Leia o termo completo antes de continuar</DialogDescription>
+        </DialogHeader>
         {/* Scrollable consent text */}
         <div
           className="mb-4 max-h-64 overflow-y-auto rounded-lg border border-border bg-surface p-4 text-sm text-gray-300 whitespace-pre-wrap"
@@ -104,8 +106,7 @@ export function ConsentDialog({
           </Button>
           <Button
             onClick={handleSubmit}
-            disabled={!canSubmit}
-            isLoading={isLoading}
+            disabled={!canSubmit || isLoading}
           >
             Concordo e Continuar
           </Button>

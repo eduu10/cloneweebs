@@ -176,7 +176,7 @@ export function PhotoUploader({
           </div>
 
           <div className="flex justify-end">
-            <Button onClick={handleSubmit} isLoading={isLoading} disabled={files.length === 0}>
+            <Button onClick={handleSubmit} disabled={files.length === 0 || isLoading}>
               <ImageIcon className="h-4 w-4" />
               Enviar {files.length} foto{files.length !== 1 ? "s" : ""}
             </Button>
