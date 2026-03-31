@@ -204,20 +204,6 @@ interface PricingPlan {
 
 const PLANS: readonly PricingPlan[] = [
   {
-    name: "Free",
-    price: "R$ 0",
-    period: "para sempre",
-    description: "Explore a plataforma sem compromisso",
-    features: [
-      "1 minuto de vídeo/mês",
-      "3 avatares básicos",
-      "Resolução 720p",
-      "Marca d'água CloneWeebs",
-    ],
-    cta: "Comece Grátis",
-    highlighted: false,
-  },
-  {
     name: "Creator",
     price: "R$ 49",
     period: "/mês",
@@ -387,8 +373,8 @@ export default function LandingPage() {
               className="bg-green-500 text-black font-semibold shadow-lg shadow-green-500/25 hover:bg-green-400 hover:shadow-green-500/40"
               asChild
             >
-              <Link href="/register">
-                Comece Grátis
+              <Link href="/login">
+                Acessar Plataforma
                 <ArrowRight className="ml-1.5 h-4 w-4" />
               </Link>
             </Button>
@@ -434,7 +420,7 @@ export default function LandingPage() {
                   <Link href="/login">Entrar</Link>
                 </Button>
                 <Button className="bg-green-500 text-black font-semibold" asChild>
-                  <Link href="/register">Comece Grátis</Link>
+                  <Link href="/login">Acessar Plataforma</Link>
                 </Button>
               </div>
             </nav>
@@ -497,8 +483,8 @@ export default function LandingPage() {
                   className="h-14 gap-2.5 rounded-xl bg-green-500 px-8 text-base font-semibold text-black shadow-2xl shadow-green-500/25 transition-all hover:bg-green-400 hover:shadow-green-500/40"
                   asChild
                 >
-                  <Link href="/register">
-                    Comece Grátis — Sem Cartão
+                  <Link href="/login">
+                    Acessar a Plataforma
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
@@ -650,7 +636,7 @@ export default function LandingPage() {
                 )}
                 asChild
               >
-                <Link href="/register">
+                <Link href="/login">
                   Ver todos os 500+ avatares
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -882,7 +868,7 @@ export default function LandingPage() {
                 Preços
               </span>
               <h2 className={cn("mt-4 text-3xl font-bold sm:text-5xl", isDark ? "text-white" : "text-gray-900")}>
-                Comece grátis. Escale sem limites.
+                Planos para cada tamanho de negócio.
               </h2>
               <p className={cn("mx-auto mt-4 max-w-xl", isDark ? "text-white/40" : "text-gray-500")}>
                 Sem surpresas. Sem taxas escondidas. Cancele quando quiser.
@@ -945,7 +931,7 @@ export default function LandingPage() {
                     variant={plan.highlighted ? "default" : "outline"}
                     asChild
                   >
-                    <Link href="/register">{plan.cta}</Link>
+                    <Link href="/login">{plan.cta}</Link>
                   </Button>
                 </div>
               ))}
@@ -984,15 +970,15 @@ export default function LandingPage() {
                 className="h-14 gap-2.5 rounded-xl bg-green-500 px-10 text-base font-semibold text-black shadow-2xl shadow-green-500/25 transition-all hover:bg-green-400 hover:shadow-green-500/40"
                 asChild
               >
-                <Link href="/register">
-                  Comece Grátis Agora
+                <Link href="/login">
+                  Acessar a Plataforma
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </Button>
             </div>
 
             <p className={cn("mt-6 text-sm", isDark ? "text-white/30" : "text-gray-400")}>
-              Sem cartão de crédito. Setup em 30 segundos. Cancele quando quiser.
+              Planos pagos a partir de R$ 49/mês. Sem fidelidade.
             </p>
           </div>
         </section>
